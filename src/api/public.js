@@ -22,6 +22,14 @@ export function login(data) {
   })
 }
 
+export function adminLogin(data) {
+  return request({
+    url: '/api/public/adminLogin',
+    method: 'post',
+    data,
+  })
+}
+
 export function register(data) {
   return request({
     url: '/api/public/register',
@@ -114,5 +122,29 @@ export function searchQuestion(search) {
   return request({
     url: `/api/public/searchQuestion?search=${search}`,
     method: 'get',
+  })
+}
+
+export function forget(data) {
+  return request({
+    url: '/api/public/forget',
+    method: 'post',
+    data,
+  })
+}
+
+export function checkForgetValidate(data) {
+  return request({
+    url: '/api/public/checkForgetValidate',
+    method: 'post',
+    data,
+  })
+}
+
+export function resetPassword(data) {
+  return request({
+    url: '/api/public/resetPassword',
+    method: 'post',
+    data,
   })
 }

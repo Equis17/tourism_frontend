@@ -15,7 +15,9 @@
     </div>
     <div class="hot">
       <div class="hotList">
-        <p class="title">热门目的地</p>
+        <p class="title">
+          <router-link to="/article/search/热门">热门目的地</router-link>
+        </p>
         <ul ref="hotRef" class="hotItem-ul clearfix" @mouseover="hoverHot">
           <li style="color:#FF9D00" value="0">国内</li>
           <li value="1">港澳台</li>
@@ -38,7 +40,9 @@
     </div>
     <div class="month">
       <div class="monthList">
-        <p class="title">当季推荐</p>
+        <p class="title">
+          <router-link to="/article/search/推荐">当季推荐</router-link>
+        </p>
         <ul ref="monthRef" class="monthItem-ul clearfix" @mouseover="hoverMonth">
           <li style="color:#FF9D00" value="0">1月</li>
           <li value="1">2月</li>
@@ -63,7 +67,9 @@
     </div>
     <div class="theme">
       <div class="themeList">
-        <p class="title">主题精选</p>
+        <p class="title">
+          <router-link to="/article/search/主题">主题精选</router-link>
+        </p>
         <ul ref="themeRef" class="themeItem-ul clearfix" @mouseover="hoverTheme">
           <li style="color:#FF9D00" value="0">全年适宜</li>
           <li value="1">季节</li>

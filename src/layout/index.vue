@@ -6,6 +6,9 @@
       </el-header>
       <el-main>
         <router-view></router-view>
+        <div @click="backTop" class="footer">
+          <i class="el-icon-arrow-up"></i>
+        </div>
       </el-main>
       <el-footer></el-footer>
     </el-container>
@@ -19,6 +22,11 @@
     name: 'index',
     components: {
       Navigator,
+    },
+    methods: {
+      backTop() {
+        window.scrollTo(0, 0)
+      },
     },
   }
 </script>
@@ -45,6 +53,24 @@
     color: #333;
   }
 
+  .footer {
+    width: 50px;
+    height: 50px;
+    background-color: #FFF;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+    color: #FF9D00;
+    text-align: center;
+    position: fixed;
+    right: 200px;
+    bottom: 100px;
+    cursor: pointer;
+
+    i {
+      font-size: 24px;
+      line-height: 50px;
+      font-weight: bold;
+    }
+  }
 
 </style>
 

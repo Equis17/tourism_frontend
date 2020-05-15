@@ -21,7 +21,8 @@
         this.isFocus = bool
       },
       submitForm() {
-        console.log(this.input)
+        this.$router.push(`/article/search/${this.input}`)
+        this.input = ''
       },
     },
   }

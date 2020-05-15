@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import admin from './modules/admin'
 import common from './modules/common'
 import edit from './modules/edit'
 import permission from './modules/permission'
@@ -8,7 +9,7 @@ import user from './modules/user'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  modules: { permission, user, common, edit },
+  modules: { permission, user, common, edit, admin },
   // 全局定义getters便于访问
   getters: {
     roles: state => state.user.roles,
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
     publicKey: state => state.common.publicKey,
     editId: state => state.edit.editId,
     avatarUrl: state => state.user.avatar_url,
+    adminToken: state => state.admin.adminToken,
   },
 })
 

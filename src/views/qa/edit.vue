@@ -113,7 +113,11 @@
       handleSubmit() {
         this.$refs['questionForm'].validate((valid) => {
           if (valid) {
-            createQuestion(this.form).then(res => console.log(res))
+            createQuestion({ ...this.form, comment: this.editor.txt.html() }).then(res => {
+              if (res.code === 200) {
+                this.$router.push('/QA/search/all')
+              }
+            })
           }
         })
       },

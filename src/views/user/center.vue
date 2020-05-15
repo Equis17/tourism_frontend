@@ -16,6 +16,9 @@
             <router-link to="/user/center/question">我的提问</router-link>
           </li>
           <li>
+            <router-link to="/user/center/editInfo">修改资料</router-link>
+          </li>
+          <li>
             <router-link to="/exit">退出</router-link>
           </li>
         </ul>

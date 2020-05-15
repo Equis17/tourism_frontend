@@ -38,13 +38,15 @@
           <el-date-picker @blur="handleSave() " v-model="infoForm.time" type="date"></el-date-picker>
         </el-form-item>
         <el-form-item label="出行天数" prop="days">
-          <el-input-number @blur="handleSave() " v-model="infoForm.days" :min="1" :max="10000"></el-input-number>
+          <el-input-number :controls="false" @blur="handleSave() " v-model="infoForm.days" :min="1"
+                           :max="10000"></el-input-number>
         </el-form-item>
         <el-form-item label="人物" prop="people">
           <el-input @blur="handleSave() " v-model="infoForm.people"></el-input>
         </el-form-item>
         <el-form-item label="人均费用" prop="fee">
-          <el-input-number @blur="handleSave() " v-model="infoForm.fee" :min="1" :max="10000000"></el-input-number>
+          <el-input-number :controls="false" @blur="handleSave() " v-model="infoForm.fee" :min="1"
+                           :max="10000000"></el-input-number>
           RMB
         </el-form-item>
 
@@ -61,6 +63,7 @@
   import { createArticle, previewArticle, publishArticle, saveArticle } from '@/api/article'
   import { uploadCover } from '@/api/upload'
   import Editor from '@/components/Editor'
+  import moment from 'moment'
 
   export default {
     name: 'edit',
@@ -99,6 +102,7 @@
     },
     data() {
       return {
+        preventSave: false,
         html: '',
         form: {
           title: '',
@@ -151,37 +155,53 @@
         return file.files[0]
       },
       handleSave(richText) {
-        if (this.$store.getters.editId === '') {
-          createArticle().then(res => {
-            if (res.code === 200) this.$store.commit('edit/SET_EDIT_ID', res.data.id)
-            return saveArticle({
-              id: res.data.id,
+        if (!this.preventSave) {
+          if (this.$store.getters.editId === '') {
+            createArticle().then(res => {
+              if (res.code === 200) this.$store.commit('edit/SET_EDIT_ID', res.data.id)
+              return saveArticle({
+                id: res.data.id,
+                richText,
+                imageUrl: this.coverFile,
+                title: this.form.title,
+                comment: this.comment,
+                ...this.infoForm,
+                time: this.infoForm.time || moment(),
+              })
+            })
+          } else {
+            saveArticle({
+              id: this.$store.getters.editId,
               richText,
               imageUrl: this.coverFile,
               title: this.form.title,
               comment: this.comment,
               ...this.infoForm,
+              time: this.infoForm.time || moment(),
             })
-          })
-        } else {
-          saveArticle({
-            id: this.$store.getters.editId,
-            richText,
-            imageUrl: this.coverFile,
-            title: this.form.title,
-            comment: this.comment,
-            ...this.infoForm,
-          })
+          }
         }
       },
-      handlePublish() {
+      //TODO editor 传智
+      handlePublish(richText) {
         this.$refs['editor-form'].validate((valid) => {
+          this.preventSave = true
           if (valid) {
             if (this.$store.getters.editId) {
-              publishArticle(this.$store.getters.editId).then(res => {
-                if (res.code === 200) {
-                  this.$router.push('/user/center/article')
-                }
+              saveArticle({
+                id: this.$store.getters.editId,
+                richText,
+                imageUrl: this.coverFile,
+                title: this.form.title,
+                comment: this.comment,
+                ...this.infoForm,
+                time: this.infoForm.time || moment(),
+              }).then(() => {
+                publishArticle(this.$store.getters.editId).then(res => {
+                  if (res.code === 200) {
+                    this.$router.push('/user/center/article')
+                  }
+                })
               })
             }
           }

@@ -7,7 +7,6 @@ export function getArticle() {
   })
 }
 
-//TODO article question info 还有删除文章和问题 问题设置答案 增加loading 效果
 export function getUserInfoById(id) {
   return request({
     url: `/api/public/getUserInfoById?id=${id}`,
@@ -35,4 +34,20 @@ export function deleteArticle(id) {
     url: `/api/article/deleteArticle?id=${id}`,
     method: 'get',
   })
+}
+
+export function getUserInfo() {
+  return request({
+    url: '/api/user/getUserInfo',
+    method: 'get',
+  })
+}
+
+export function setUserInfo(data) {
+  return request({
+    url: '/api/user/setUserInfo',
+    method: 'post',
+    data,
+  })
+
 }

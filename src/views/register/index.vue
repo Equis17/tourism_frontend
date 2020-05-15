@@ -22,7 +22,8 @@
           <el-input v-model="form.nickName" placeholder="您的昵称"></el-input>
         </el-form-item>
         <el-form-item prop="age" label="年龄">
-          <el-input-number :min="0" :max="100" v-model="form.age" placeholder="您的年龄"></el-input-number>
+          <el-input-number :controls="false" :min="0" :max="100" v-model="form.age"
+                           placeholder="您的年龄"></el-input-number>
         </el-form-item>
         <el-form-item prop="email">
           <el-input v-model="form.email" placeholder="您的邮箱"></el-input>
@@ -173,7 +174,6 @@
               })
             }
           } else {
-            console.log('error')
             return false
           }
         })

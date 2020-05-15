@@ -1,5 +1,5 @@
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getAdminToken, getToken } from '@/utils/auth'
 import axios from 'axios'
 import { Message } from 'element-ui'
 
@@ -9,10 +9,14 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
-    if (store.getters.token) {
-
-      config.headers['Authorization'] = `Bearer ${getToken()}`
+    if (store.getters.token || store.getters.adminToken) {
+      if (store.getters.adminToken) {
+        config.headers['Authorization'] = `Bearer ${getAdminToken()}`
+      } else {
+        config.headers['Authorization'] = `Bearer ${getToken()}`
+      }
     }
+
     return config
   },
   error => {
@@ -45,11 +49,12 @@ service.interceptors.response.use(
   },
   error => {
     if (error.response.status === 401) {
-      window.location.href = '/login'
-      store.dispatch('user/resetToken').then(() => {
-        window.location.href = '/login'
-
-      })
+      /*  window.location.href = '/login'
+       store.dispatch('user/resetToken').then(() => {
+       store.dispatch('admin/resetToken').then(() => {
+       window.location.href = '/home'
+       })
+       })*/
     } else {
       Message({
         message: typeof error.message === 'object' ? '系统异常,请联系管理员' : error.message,

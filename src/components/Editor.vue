@@ -91,7 +91,7 @@
     },
     methods: {
       handlePublish() {
-        this.$emit('publish')
+        this.$emit('publish', this.editor.txt.html())
       },
       handleSave() {
         this.$emit('save', this.editor.txt.html())
