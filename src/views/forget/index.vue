@@ -60,7 +60,7 @@
         if (!value) {
           return callback(new Error('验证码不能为空'))
         }
-        if (value.length !== 8) {
+        if (value.length !== 4) {
           return callback(new Error('请输入正确的验证码'))
         }
         return callback()

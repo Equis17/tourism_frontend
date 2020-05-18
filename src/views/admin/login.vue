@@ -58,8 +58,10 @@
               password: encryptedInfo,
             }).then(res => {
               if (res.code === 200) {
-                this.$store.commit('admin/SET_ADMIN_TOKEN', res.data)
-                this.$router.push('/admin/router')
+                this.$store.dispatch('user/resetToken').then(() => {
+                  this.$store.commit('admin/SET_ADMIN_TOKEN', res.data)
+                  this.$router.push('/admin/manage/router')
+                })
               }
             })
           } else {

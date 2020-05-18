@@ -1,10 +1,4 @@
-import JWTDecode from 'jwt-decode'
-
 export function getToken() {
-  const token = localStorage.getItem('token')
-  if (token) {
-    console.log(JWTDecode(token))
-  }
   return localStorage.getItem('token')
 }
 
@@ -17,10 +11,6 @@ export function removeToken() {
 }
 
 export function getAdminToken() {
-  const adminToken = localStorage.getItem('adminToken')
-  if (adminToken) {
-    console.log(JWTDecode(adminToken))
-  }
   return localStorage.getItem('adminToken')
 }
 

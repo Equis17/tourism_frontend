@@ -30,7 +30,7 @@
         <div class="hotBox">
           <div v-for="(item,index) in hotItem" :key="item.name" :class="index%2===0 ?'left clearfix':'right clearfix'">
             <router-link :to="`/article/search/${item.name}`" class="title">{{item.name}}</router-link>
-            <router-link class="city" v-for="(valueItem) in item.value.split(' ')" :to="`/search/${valueItem}`"
+            <router-link class="city" v-for="(valueItem) in item.value.split(' ')" :to="`/article/search/${valueItem}`"
                          :key="valueItem">{{valueItem}}
             </router-link>
           </div>

@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import { getLikeCommentList } from '@/api/admin'
+  import { getLikeCommentInfoList } from '@/api/admin'
 
   export default {
     name: 'likeComment',
@@ -52,7 +52,7 @@
       }
     },
     created() {
-      getLikeCommentList().then(res => {
+      getLikeCommentInfoList().then(res => {
         if (res.code === 200) {
           this.tableData.push(...res.data)
         }

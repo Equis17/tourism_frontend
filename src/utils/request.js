@@ -49,12 +49,21 @@ service.interceptors.response.use(
   },
   error => {
     if (error.response.status === 401) {
-      /*  window.location.href = '/login'
-       store.dispatch('user/resetToken').then(() => {
-       store.dispatch('admin/resetToken').then(() => {
-       window.location.href = '/home'
-       })
-       })*/
+      if (/^\/api\/admin/.test(error.config.url)) {
+        window.location.href = '/admin/login'
+        store.dispatch('user/resetToken').then(() => {
+          store.dispatch('admin/resetToken').then(() => {
+            window.location.href = '/admin/login'
+          })
+        })
+      } else {
+        window.location.href = '/login'
+        store.dispatch('user/resetToken').then(() => {
+          store.dispatch('admin/resetToken').then(() => {
+            window.location.href = '/login'
+          })
+        })
+      }
     } else {
       Message({
         message: typeof error.message === 'object' ? '系统异常,请联系管理员' : error.message,
